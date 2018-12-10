@@ -8,46 +8,46 @@
 #include <unistd.h>
 #include <errno.h>
 #include <arpa/inet.h>
-Â 
-intÂ main()
+ 
+int main()
 {
-Â Â Â Â intÂ CreateSocketÂ =Â 0,nÂ =Â 0;
-Â Â Â Â charÂ dataReceived[5217];
-Â Â Â Â structÂ sockaddr_inÂ ipOfServer;
-Â 
-Â Â Â Â memset(dataReceived,Â '0'Â ,sizeof(dataReceived));
-Â 
-Â Â Â Â if((CreateSocketÂ =Â socket(AF_INET,Â SOCK_STREAM,Â 0))<Â 0)
-Â Â Â Â {
-Â Â Â Â Â Â Â Â printf("Socket not created \n");
-Â Â Â Â Â Â Â Â returnÂ 1;
-Â Â Â Â }
-Â 
-Â Â Â Â ipOfServer.sin_familyÂ =Â AF_INET;
-Â Â Â Â ipOfServer.sin_portÂ =Â htons(2017);
-Â Â Â Â ipOfServer.sin_addr.s_addrÂ =Â inet_addr("192.168.159.135");
-Â 
-Â Â Â Â if(connect(CreateSocket,Â (structÂ sockaddrÂ *)&ipOfServer,sizeof(ipOfServer))<0)
-Â Â Â Â {
-Â Â Â Â Â Â Â Â printf("Connection failed due to port and ip problems\n");
-Â Â Â Â Â Â Â Â returnÂ 1;
-Â Â Â Â }
-Â 
-Â Â Â Â while((nÂ =Â read(CreateSocket,Â dataReceived,Â sizeof(dataReceived)-1))Â >0)
-Â Â Â Â {
-Â Â Â Â Â Â Â Â dataReceived[n]Â =Â 0;
-Â Â Â Â Â Â Â Â if(fputs(dataReceived,Â stdout)Â ==Â EOF)
-Â Â Â Â Â Â Â Â {
-Â Â Â Â Â Â Â Â Â Â Â Â printf("\nStandard output error");
-Â Â Â Â Â Â Â Â }
-Â 
-Â Â Â Â Â Â Â Â printf("\n");
-Â Â Â Â }
-Â 
-Â Â Â Â if(Â nÂ <Â 0)
-Â Â Â Â {
-Â Â Â Â Â Â Â Â printf("Standard input error \n");
-Â Â Â Â }
-Â 
-Â Â Â Â returnÂ 0;
+    int CreateSocket = 0,n = 0;
+    char dataReceived[5217];
+    struct sockaddr_in ipOfServer;
+ 
+    memset(dataReceived, '0' ,sizeof(dataReceived));
+ 
+    if((CreateSocket = socket(AF_INET, SOCK_STREAM, 0))< 0)
+    {
+        printf("Socket not created \n");
+        return 1;
+    }
+ 
+    ipOfServer.sin_family = AF_INET;
+    ipOfServer.sin_port = htons(2017);
+    ipOfServer.sin_addr.s_addr = inet_addr("192.168.159.135");
+ 
+    if(connect(CreateSocket, (struct sockaddr *)&ipOfServer,sizeof(ipOfServer))<0)
+    {
+        printf("Connection failed due to port and ip problems\n");
+        return 1;
+    }
+ 
+    while((n = read(CreateSocket, dataReceived, sizeof(dataReceived)-1)) >0)
+    {
+        dataReceived[n] = 0;
+        if(fputs(dataReceived, stdout) == EOF)
+        {
+            printf("\nStandard output error");
+        }
+ 
+        printf("\n");
+    }
+ 
+    if( n < 0)
+    {
+        printf("Standard input error \n");
+    }
+ 
+    return 0;
 }
