@@ -1,19 +1,21 @@
 import java.net.*;
 import java.io.*;
 import java.util.*;
-class DateServer
-{
-public static void main(String args[]) throws Exception
-{ 
-   ServerSocket s = new ServerSocket(5217);
-   while(true)
-{ 
-   System.out.println(ìWaiting For Connection Ö. ì);
-   Socket soc = s.accept();
-   DataOutputStream out = new DataOutputStream(soc.getOutputStream());
-   out.writeBytes(ìServer Date: ì + (new Date()).toString() + ì\nî);
-   out.close();
-   soc.close();
-}
-}
+class DateServer{
+   
+   public static void main(String args[]) throws Exception{ 
+      ServerSocket s = new ServerSocket(9999);
+          while(true){ 
+      
+            System.out.println(‚Äú Connection Pending... ‚Äú);
+            Socket soc = s.accept();
+             
+            DataOutputStream out = new DataOutputStream(soc.getOutputStream());
+            out.writeBytes(‚ÄúDate: ‚Äú + (new Date()).toString() + ‚Äú\n‚Äù);
+             
+            out.close();
+            soc.close();
+      
+           }
+      }
 }
